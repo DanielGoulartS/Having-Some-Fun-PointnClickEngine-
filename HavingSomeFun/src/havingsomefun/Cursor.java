@@ -139,7 +139,7 @@ public class Cursor implements MouseListener{
                     + " WHERE ia.scene_id = " + sceneId + ";");
             
             while(rsInt.next()){
-                System.out.println(rsInt.getString("image"));
+                //System.out.println(rsInt.getString("image"));
                 interactions[i] = new InterfaceElement(rsInt.getInt("id"), rsInt.getString("text"), rsInt.getInt("x"), rsInt.getInt("y"), 
                         rsInt.getInt("w"), rsInt.getInt("h"), lm, rsInt.getString("type")).buildInteraction(rsInt.getString("image"));
                 
@@ -251,7 +251,7 @@ public class Cursor implements MouseListener{
             
             i = 0;
             while(rsImages.next()){
-                System.out.println(rsImages.getString("image"));
+                //System.out.println(rsImages.getString("image"));
                 images[i] = rsImages.getString("image");
                 i++;
             }

@@ -24,12 +24,12 @@ public class Connection {
             String url = "jdbc:mysql://localhost:3380/hsf";
             //Se não estiver conectado, conecte
             if (this.connection == null || !this.connection.isValid(10)) {
-                this.connection = DriverManager.getConnection(url, "xxxx", "xxxx");
+                this.connection = DriverManager.getConnection(url, "root", "0000");
             }
             //Está?
             valid = this.connection.isValid(10);
             if (valid) {
-                System.out.println("Conectado!");
+                //System.out.println("Conectado!");
             }
 
         } catch (SQLException e) {
@@ -46,7 +46,7 @@ public class Connection {
             if (!this.connection.isClosed()) {
                 this.connection.close();
             }
-            System.out.println("Desconectado!");
+            //System.out.println("Desconectado!");
         } catch (SQLException e) {
             System.err.println("Erro ao Desconectar! " + e);
             return false;
@@ -78,7 +78,7 @@ public class Connection {
 
         try {
             Statement stmt = createStatement();
-            System.out.println("ExecuteQuery executada com sucesso.");
+            //System.out.println("ExecuteQuery executada com sucesso.");
             return stmt.executeQuery(sql);
         } catch (SQLException e) {
             System.err.println("Connection.ExecuteQuery() " + e);
@@ -90,7 +90,7 @@ public class Connection {
 
         try {
             Statement stmt = createStatement();
-            System.out.println("Execute executada com sucesso.");
+            //System.out.println("Execute executada com sucesso.");
             return stmt.execute(sql);
         } catch (SQLException e) {
             System.err.println("Connection.Execute() " + e);

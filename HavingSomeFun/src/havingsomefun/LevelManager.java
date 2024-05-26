@@ -1,8 +1,11 @@
 package havingsomefun;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -12,9 +15,10 @@ import javax.swing.JPanel;
  */
 public class LevelManager extends JPanel implements Runnable{
 
-    JFrame frame;
+    public JFrame frame;
     final int FPS = 60;
     Thread t1;
+    public int initialLevelId;
     public Scene currentScene, previousScene;
     public Cursor cursor = new Cursor(this);
     public String ending = "Dead", endingImage = "/media/ending/ending.png";
@@ -30,6 +34,10 @@ public class LevelManager extends JPanel implements Runnable{
     public void changeScene(int id, String title, String password, String narrationText, String layer1, String layer2, String layer3){
         previousScene = currentScene;
         currentScene = new Scene(id, title, password, narrationText, layer1, layer2, layer3, this);
+    }
+    
+    private void labelScene(String labelTitle) {
+        currentScene = new AgeLabelWarning(labelTitle, this);
     }
 
     public void endGame(){
@@ -47,9 +55,13 @@ public class LevelManager extends JPanel implements Runnable{
                 }else if (currentScene.layer2 == null && currentScene.layer3 == null){
                     endScene.layer2 = currentScene.layer1;
                 }
-                
-                endScene.addText(ending + "!",
-                         (getWidth() / 2), (getHeight() / 2), 500, 500);
+
+                if (ending == null || ending.isBlank()) {
+                    ending = "as an Adventurer!";
+                }
+
+                endScene.addText("You finished", (getWidth() / 2), (getHeight() / 2) - 70, 500, 500, 60, "center");
+                endScene.addText(ending + "!", (getWidth() / 2), (getHeight() / 2), 500, 500, 60, "center");
 
                 currentScene = endScene;
 
@@ -110,5 +122,22 @@ public class LevelManager extends JPanel implements Runnable{
             }
         }
     }
+
+    void confirm(String confirm) {
+        if(confirm.equals("THIS IS ADULT CONTENT")){
+            System.out.println("The developer of this game, not the engine, agree that this game is Family Friendly and friendly for all ages.");
+            labelScene("ADULT LABEL");
+            
+        }else if(confirm.equals("THIS IS NOT ADULT CONTENT")){
+            System.out.println("The developer of this game, not the engine, agree that this game is Adult Content and NOT friendly for all ages.");
+            labelScene("FAMILY LABEL");
+            
+        }else{
+            System.out.println("This game has no information from its author about age labels, so it will not work for public safety.");
+            labelScene("NO LABEL");
+            
+        }
+    }
+
 
 }

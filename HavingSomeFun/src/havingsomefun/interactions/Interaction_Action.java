@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +21,7 @@ public class Interaction_Action extends InterfaceElement {
     int next;
 
     public Interaction_Action(String text, int prox, int x, int y, LevelManager lm, String imageURL) {
-        super("/media/placa_1.png", "/media/placa_2.png", x, y, 170, 80, lm);
+        super("", "", x, y, 170, 80, lm);
         this.text = text;
         this.next = prox;
      
@@ -32,7 +34,7 @@ public class Interaction_Action extends InterfaceElement {
     }
 
     public Interaction_Action(String text, int prox, int x, int y, int w, int h, LevelManager lm, String imageURL) {
-        super("/media/placa_1.png", "/media/placa_2.png", x, y, w, h, lm);
+        super("", "", x, y, w, h, lm);
         this.text = text;
         this.next = prox;
      
@@ -46,7 +48,15 @@ public class Interaction_Action extends InterfaceElement {
     
     
     public void interact(int resposta) {
-        
+
+        if (lm.currentScene.title.equals("ADULT LABEL") || lm.currentScene.title.equals("FAMILY LABEL")) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Interaction_Action.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
         if(next != 999) {
             lm.cursor.changeScene(next);
         }else{

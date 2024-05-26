@@ -15,13 +15,12 @@ import javax.imageio.ImageIO;
  */
 public class Scene{
     
-    String title, narrationText = "";
+    public String title, narrationText = "";
     public Interaction_Dialog narration;
     LevelManager lm;
     public BufferedImage layer1, layer2, layer3;
     public InterfaceElement[] interactions;
     public String[] levelPassword, playerPassword;
-
 
     public Scene(int id, String title, String password, String narrationText, String layer1, String layer2, String layer3, LevelManager lm) {
 
@@ -36,7 +35,7 @@ public class Scene{
             this.layer3 = ImageIO.read(getClass().getResourceAsStream(layer3));
 
         } catch (IOException ex) {
-            Logger.getLogger("555" + Scene.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Scene.class.getName()).log(Level.SEVERE, null, ex);
         }
         narration = new Interaction_Dialog(narrationText, 0, 0, lm.frame.getWidth(), 10, null, lm);
     }
@@ -79,14 +78,12 @@ public class Scene{
     }
     
     
-    public InterfaceElement addText(String text, int x, int y, int w, int h ) {
-        
-        if(text.equals("!")){
-            text = "as an Adventurer!";
-        }
+    public InterfaceElement addText(String text, int x, int y, int w, int h, int fontSize, String align) {
         
         InterfaceElement newInteraction = new InterfaceElement(0,text, x, y, w, h, lm, "");
-
+        newInteraction.fontSize = fontSize;
+        newInteraction.align = align;
+        
         for (int i = 0; i < interactions.length; i++) {
             if (interactions[i] == null) {
                 interactions[i] = newInteraction;
